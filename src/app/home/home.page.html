@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button black></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      The most popular
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-searchbar animated showCancelButton="focus" [(ngModel)]="recherche" (ionChange)="updateFiltre()"></ion-searchbar>
+  <ion-list>
+    <ion-list-header>
+      <ion-label>
+        Category
+      </ion-label>
+    </ion-list-header>
+    <ion-item>
+      <ion-label>Select a type</ion-label>
+      <ion-select placeholder="Select One" [(ngModel)]="selected" (ionChange)="Filtre()">
+        <ion-select-option value=1>Films</ion-select-option>
+        <ion-select-option value=2>Series</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item lines="full" *ngFor="let films of popular">
+      <ion-card>
+        <img src="https://image.tmdb.org/t/p/w500{{films.backdrop_path}}" (click)="detailsModal(films)">
+        <ion-card-header>
+          <ion-card-subtitle>{{films.original_title}}</ion-card-subtitle>
+          <ion-card-title>{{films.title}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          {{films.release_date}}
+        </ion-card-content>
+      </ion-card>
+
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+
+    <ion-card lines="full" *ngFor="let ser of series">
+
+      <ion-card>
+        <img src="https://image.tmdb.org/t/p/w500{{ser.backdrop_path}}" (click)="detailsSerie(ser)">
+        <ion-card-header>
+          <ion-card-subtitle>{{ser.original_name}}</ion-card-subtitle>
+          <ion-card-title>{{ser.name}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          {{ser.first_air_date}}
+        </ion-card-content>
+      </ion-card>
+      
+    </ion-card>
+
+  </ion-list>
+
+  <ion-infinite-scroll threshold="50px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

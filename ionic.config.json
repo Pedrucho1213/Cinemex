@@ -1,5 +1,7 @@
 {
   "name": "Cinemex",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
